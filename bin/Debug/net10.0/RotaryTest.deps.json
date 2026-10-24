@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "RotaryTest/1.0.0": {
+        "dependencies": {
+          "System.Device.Gpio": "4.2.0"
+        },
+        "runtime": {
+          "RotaryTest.dll": {}
+        }
+      },
+      "System.Device.Gpio/4.2.0": {
+        "runtime": {
+          "lib/net8.0/System.Device.Gpio.dll": {
+            "assemblyVersion": "4.2.0.0",
+            "fileVersion": "4.200.26.16901"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RotaryTest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Device.Gpio/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MbacJrE7B+aIIAKO6YFUB9RNHneaobwnw0DhVMGbjGsMN82i0+HYCfSRlkuEbsD4HlzTcIlqIFYfkph3xFq2sQ==",
+      "path": "system.device.gpio/4.2.0",
+      "hashPath": "system.device.gpio.4.2.0.nupkg.sha512"
+    }
+  }
+}
