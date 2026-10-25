@@ -13,14 +13,21 @@ Console.CancelKeyPress += (_, eventArgs) =>
     cancellationTokenSource.Cancel();
 };
 
-var backlight = BacklightController.Open();
+var backlight = BacklightController.TryOpen();
 var brightness = initialBrightness;
-backlight.SetBrightness(brightness);
+backlight?.SetBrightness(brightness);
 
 Console.WriteLine("Rotary encoder test");
 Console.WriteLine($"CLK: GPIO{clkPin}, DT: GPIO{dtPin}, SW: GPIO{switchPin}");
-Console.WriteLine($"Backlight: {backlight.Name} ({brightness}%)");
-Console.WriteLine("Turn the encoder to change brightness. Press its button to show the current value. Press Ctrl+C to exit.");
+if (backlight is null)
+{
+    Console.WriteLine("No Linux backlight device found. Brightness is readout-only; the physical display will not change.");
+}
+else
+{
+    Console.WriteLine($"Backlight: {backlight.Name} ({brightness}%)");
+}
+Console.WriteLine("Turn the encoder to change the brightness value. Press its button to show it. Press Ctrl+C to exit.");
 
 using var gpio = new GpioController();
 gpio.OpenPin(clkPin, PinMode.InputPullUp);
@@ -49,15 +56,15 @@ while (!cancellationTokenSource.IsCancellationRequested)
         if (quarterSteps >= 4)
         {
             brightness = Math.Min(100, brightness + 1);
-            backlight.SetBrightness(brightness);
-            Console.WriteLine($"Rotated clockwise: {brightness}%");
+            backlight?.SetBrightness(brightness);
+            Console.WriteLine($"Rotated clockwise: {brightness}%{(backlight is null ? " (readout only)" : "")}");
             quarterSteps = 0;
         }
         else if (quarterSteps <= -4)
         {
             brightness = Math.Max(0, brightness - 1);
-            backlight.SetBrightness(brightness);
-            Console.WriteLine($"Rotated counterclockwise: {brightness}%");
+            backlight?.SetBrightness(brightness);
+            Console.WriteLine($"Rotated counterclockwise: {brightness}%{(backlight is null ? " (readout only)" : "")}");
             quarterSteps = 0;
         }
     }
@@ -104,7 +111,7 @@ sealed class BacklightController
 
     public string Name { get; }
 
-    public static BacklightController Open()
+    public static BacklightController? TryOpen()
     {
         if (!OperatingSystem.IsLinux())
         {
@@ -114,10 +121,15 @@ sealed class BacklightController
         const string backlightDirectory = "/sys/class/backlight";
         if (!Directory.Exists(backlightDirectory))
         {
-            throw new DirectoryNotFoundException($"No Linux backlight devices were found at {backlightDirectory}.");
+            return null;
         }
 
         var devices = Directory.GetDirectories(backlightDirectory);
+        if (devices.Length == 0)
+        {
+            return null;
+        }
+
         if (devices.Length != 1)
         {
             throw new InvalidOperationException(
