@@ -15,3 +15,4 @@ C:\Users\tyler\CODE\RotaryTest\obj\Debug\net10.0\refint\RotaryTest.dll
 C:\Users\tyler\CODE\RotaryTest\obj\Debug\net10.0\RotaryTest.pdb
 C:\Users\tyler\CODE\RotaryTest\obj\Debug\net10.0\RotaryTest.genruntimeconfig.cache
 C:\Users\tyler\CODE\RotaryTest\obj\Debug\net10.0\ref\RotaryTest.dll
+C:\Users\tyler\CODE\RotaryTest\obj\Debug\net10.0\RotaryTest.sourcelink.json

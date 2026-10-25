@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RotaryTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5287c64d32df80be60d2f3afc59d137c9b1bcad7")]
 [assembly: System.Reflection.AssemblyProductAttribute("RotaryTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RotaryTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
